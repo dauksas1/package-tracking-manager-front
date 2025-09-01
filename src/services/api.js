@@ -1,18 +1,15 @@
 
-export const loadAllParcels = async ()=>{
-    const response = await fetch("http://localhost:8080/api/parcels");
-    const data = await response.json()
-    return data
+export  const loadAllParcelsApi = async ()=>{
+        const response = await fetch("http://localhost:5190/api/parcels");
+        const data = await response.json()
+        return data
 };
 
-export const createParcel = async (formedParcel) => {
-    const response = await fetch(`http://localhost:8080/api/parcels/createParcel`,
-        {   
-            method:"POST",
-            headers:{
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formedParcel),
+export  const createParcel = async (newParcel) => {
+        const response = await fetch(`http://localhost:5190/api/parcels/createParcel`,{   
+        method:"POST",
+        headers:{"Content-Type": "application/json"},
+        body: JSON.stringify(newParcel),
         });
     const text = await response.text();
 
@@ -23,16 +20,27 @@ export const createParcel = async (formedParcel) => {
     }
 };
 
-export const updateParcelStatus = async (parcel) => {
-    const response = await fetch(`http://localhost:8080/api/parcels/updateParcelStatus/${parcel.id}`,
-        {   
-            method:"PUT",
-            headers:{
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(parcel),
+export async function updateParcelStatus(parcelId, newStatus) {
+    const response = await fetch(`http://localhost:5190/api/parcels/${parcelId}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newStatus })
         });
-    if(response.ok){
-        alert("Parcel updated.")
-    }
-};
+    const data = await response.json();
+
+  return {
+    success: response.ok, // This line is key
+    message: data.message,
+  };
+
+
+}
+
+export async function getParcelById(id) {
+  const response = await fetch(`http://localhost:5190/api/parcels/${id}`);
+  if (!response.ok) throw new Error('Parcel not found');
+  return await response.json();
+}
+
+
+

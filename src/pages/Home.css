@@ -5,5 +5,10 @@ body {
   justify-content: center;
   align-items:flex-start;
   background-color: #1d2024;
+  background-image: url('../assets/blurred dark themed boxes.png'); /* adjust path as needed */
+  background-size: cover;       /* scales image to cover entire screen */
+  background-repeat: no-repeat; /* prevents tiling */
+  background-position: center;  /* centers the image */
+  background-attachment: fixed; /* keeps background static while scrolling */
 }
 

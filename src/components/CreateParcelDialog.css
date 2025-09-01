@@ -1,0 +1,120 @@
+.dialog-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+
+
+.dialog-box {
+  background: #6d6666;
+  color: #23f1f1;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 600px;
+  box-shadow: 0 8px 20px rgba(71, 67, 67, 0.2);
+  animation: slideUp 0.4s ease-out;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.parcel-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Tracking number section */
+.tracking-section {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sender and recipient side-by-side */
+.details-section {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+/* Each column */
+.sender-details,
+.recipient-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.parcel-form label {
+  font-weight: bold;
+}
+
+.parcel-form input,
+.parcel-form select,
+.parcel-form textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #16eaf1;
+}
+
+/* Address height */
+.sender-address,
+.recipient-address {
+  height: 100px;
+}
+
+/* Buttons */
+.dialog-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding-bottom: 20px;
+}
+
+.dialog-actions button {
+  margin-top: 30px;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.dialog-actions button[type="submit"] {
+  background-color: #28d6d6;
+  color: rgb(46, 44, 44);
+  border: 1px solid #686565;
+}
+
+.dialog-actions button[type="button"] {
+  background-color: #da3c3c;
+  border: 1px solid #686565;
+}
+
+.tracking-section,
+.delivery-section {
+  margin-bottom: 1rem;
+}
+
+.details-section {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.sender-details,
+.recipient-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+

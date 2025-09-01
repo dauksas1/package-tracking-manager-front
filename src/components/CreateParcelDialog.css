@@ -1,7 +1,10 @@
+/* Overlay */
 .dialog-overlay {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -9,10 +12,9 @@
   z-index: 9999;
 }
 
-
-
+/* Dialog Box */
 .dialog-box {
-  background: #6d6666;
+  background: #353535ea;
   color: #23f1f1;
   padding: 2rem;
   border-radius: 8px;
@@ -24,29 +26,8 @@
   gap: 1.5rem;
 }
 
+/* Form Layout */
 .parcel-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* Tracking number section */
-.tracking-section {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Sender and recipient side-by-side */
-.details-section {
-  display: flex;
-  gap: 2rem;
-  justify-content: space-between;
-}
-
-/* Each column */
-.sender-details,
-.recipient-details {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -66,13 +47,39 @@
   color: #16eaf1;
 }
 
-/* Address height */
+/* Address Fields */
 .sender-address,
 .recipient-address {
   height: 100px;
 }
 
-/* Buttons */
+/* Tracking & Delivery Sections */
+.tracking-section,
+.delivery-section {
+  margin-bottom: 1rem;
+}
+
+.tracking-section {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sender & Recipient Details */
+.details-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.sender-details,
+.recipient-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Action Buttons */
 .dialog-actions {
   display: flex;
   justify-content: center;
@@ -95,26 +102,6 @@
 }
 
 .dialog-actions button[type="button"] {
-  background-color: #da3c3c;
+  background-color: #bd4444;
   border: 1px solid #686565;
 }
-
-.tracking-section,
-.delivery-section {
-  margin-bottom: 1rem;
-}
-
-.details-section {
-  display: flex;
-  gap: 2rem;
-  justify-content: space-between;
-}
-
-.sender-details,
-.recipient-details {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-

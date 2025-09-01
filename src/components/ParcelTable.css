@@ -1,13 +1,13 @@
-
+/* Container and Layout */
 .table-container {
   display: flex;
   flex-direction: column;
-  position:relative;
-  width:90vw;
+  position: relative;
+  width: 90vw;
+  margin-top: 100px;
+  padding: 30px;
   border-radius: 5px;
   background-color: #44474bc5;
-  padding: 30px;
-  margin-top: 100px;
 }
 
 .table-title {
@@ -17,12 +17,12 @@
   color: #40d5f0;
 }
 
-
+/* Table Styling */
 .parcel-table {
   width: 100%;
+  border-radius: 5px;
   background-color: rgb(168, 177, 182);
   box-shadow: 0 2px 8px rgba(104, 100, 100, 0.05);
-  border-radius: 5px;
 }
 
 .parcel-table thead {
@@ -32,99 +32,137 @@
 
 .parcel-table th,
 .parcel-table td {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding: 12px;
   border-top: 1px solid #e5e7eb;
   border-radius: 3px;
-}
-
-th, td {
   text-align: center;
   vertical-align: middle;
 }
-
-
 
 .parcel-table tbody tr:hover {
   background-color: #6ec9b275;
   border-radius: 5px;
 }
 
-.status-badge {
-  display: inline-block;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: rgb(54, 50, 50);
-  width: 100%;
-  height: 100%;
-}
-
-button {
-  color: rgba(26, 24, 24, 0.87);
-  border-radius: 5px;
-  border: 2px solid transparent;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: inherit;
-  background-color: #757373;
-  cursor: pointer;
-}
-
-.create-package-button{
-  border-radius: 5px;
-  color: #0fe6ee;
-  width: 180px;
-  height: 30px;
-  margin-bottom: 20px;
-  margin-left: auto;
-  font-size: 14px;
-  border: 1px solid #ccc;
-}
-
+/* Controls and Inputs */
 .table-controls {
   display: flex;
+  align-items: center;
   gap: 12px;
   margin-bottom: 16px;
-  align-items: center;
 }
 
-.filter-input,
-.filter-select {
-  padding: 2px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  height: 30px;
-  font-size: 15px;
+.control-label {
   color: #40d5f0;
 }
 
-.status-select {
-  padding: 4px;
+.filter-input {
+  height: 28px;
+  padding: 2px;
+  margin-left: 20px;
+  font-size: 15px;
+  color: #40d5f0;
+  border: 1px solid #797979;
   border-radius: 4px;
-  border: 1px solid #ccc;
-  font-weight: bold;
-  width: 100%;
 }
 
-.status-selector-wrapper{
-  border-radius: 5px;
-  
-  color: #0fe6ee;
+.filter-input::placeholder {
+  font-size: 15px;
+  color: #40d5f0;
+  opacity: 1;
+}
+
+.filter-select {
+  width: 120px;
+  margin-left: 10px;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 6px;
+  background-color: #393a3d;
+  color: #36eaf0;
+  box-sizing: border-box;
+}
+
+/* Status Styling */
+.status-select,
+.status-badge {
+  width: 100%;
+  height: 32px;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.status-badge {
+  display: inline-block;
+}
+
+.status-selector-wrapper {
   padding: 5px;
   border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #0fe6ee;
 }
 
-.status-select.status-created { background-color: #6c757d; color: white; }
-.status-select.status-sent { background-color: #007bff; color: white; }
-.status-select.status-returned { background-color: #ffc107; color: black; }
-.status-select.status-accepted ,
-.status-select.status-canceled {
-  background-color: #343a40;
+/* Status Colors */
+.status-created   { background-color: #6c757d; color: white; }
+.status-sent      { background-color: #007bff; color: white; }
+.status-returned  { background-color: #ffc107; color: black; }
+.status-accepted  { background-color: #28a745; color: white; }
+.status-canceled  { background-color: #dc3545; color: white; }
+.status-delivered { background-color: #10b981; color: white; }
+.status-transit   { background-color: #3b82f6; color: white; }
+.status-delayed   { background-color: #ef4444; color: white; }
+.status-pending   { background-color: #f59e0b; color: white; }
+.status-unknown   { background-color: #6b7280; color: white; }
+
+/* Status Select Variants */
+.status-select.status-created   { background-color: #6c757d; color: white; }
+.status-select.status-sent      { background-color: #007bff; color: white; }
+.status-select.status-returned  { background-color: #ffc107; color: black; }
+.status-select.status-accepted  {
+  background-color: #28a745;
+  color: white;
+  pointer-events: none;
+}
+.status-select.status-canceled  {
+  background-color: #dc3545;
   color: white;
   pointer-events: none;
 }
 
+/* Buttons */
+button {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  color: rgba(26, 24, 24, 0.87);
+  background-color: #757373;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-package-button {
+  width: 180px;
+  height: 35px;
+  margin-left: auto;
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #0fe6ee;
+  background-color: #393a3d;
+  border: 1px solid #797474;
+  border-radius: 5px;
+}
+
+/* Row Interactions */
 .clickable-row {
   cursor: pointer;
 }
@@ -132,14 +170,3 @@ button {
 .clickable-row:hover {
   background-color: #f9f9f9;
 }
-
-
-
-
-
-.status-delivered { background-color: #10b981; }
-.status-transit   { background-color: #3b82f6; }
-.status-delayed   { background-color: #ef4444; }
-.status-pending   { background-color: #f59e0b; }
-.status-unknown   { background-color: #6b7280; }
-

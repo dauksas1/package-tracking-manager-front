@@ -1,6 +1,6 @@
 import './ParcelTable.css';
 import { useState } from 'react';
-import { updateParcelStatus } from '../services/api.js';
+import { updateParcelStatusApi } from '../services/api.js';
 import { useNavigate } from 'react-router-dom';
 
 const statusTransitions = {
@@ -14,23 +14,40 @@ const statusTransitions = {
 function ParcelTable({ parcels, setShowDialog, reloadParcels }) {
   const [trackingFilter, setTrackingFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+  const [selectedParcelId, setSelectedParcelId] = useState(null);
+  const [selectedNewStatus, setSelectedNewStatus] = useState('');
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showFailureModal, setShowFailureModal] = useState(false);
+
   const navigate = useNavigate();
 
   const filteredParcels = parcels.filter(parcel => {
     const matchesTracking = parcel.trackingNumber
       .toLowerCase()
       .includes(trackingFilter.toLowerCase());
+
     const matchesStatus = statusFilter ? parcel.status === statusFilter : true;
+
     return matchesTracking && matchesStatus;
   });
 
-  const handleStatusChange = async (parcelId, newStatus) => {
+  const handleStatusSelect = (parcelId, newStatus) => {
+    setSelectedParcelId(parcelId);
+    setSelectedNewStatus(newStatus);
+    setShowConfirmationModal(true);
+  };
+
+  const confirmStatusChange = async () => {
     try {
-      await updateParcelStatus(parcelId, newStatus);
+      await updateParcelStatusApi(selectedParcelId, selectedNewStatus);
       await reloadParcels();
+      setShowSuccessModal(true);
     } catch (error) {
       console.error('Failed to update status:', error);
-      alert('Could not update parcel status. Please try again.');
+      setShowFailureModal(true);
+    } finally {
+      setShowConfirmationModal(false);
     }
   };
 
@@ -42,18 +59,23 @@ function ParcelTable({ parcels, setShowDialog, reloadParcels }) {
     <div className="table-container">
       <h2 className="table-title">📦 All Parcels</h2>
 
+      {/* Filters and Controls */}
       <div className="table-controls">
-        <input
-          type="text"
-          placeholder="Search tracking number"
-          value={trackingFilter}
-          onChange={(e) => setTrackingFilter(e.target.value)}
-          className="filter-input"
-        />
+        <div className="control-group">
+          <input
+            id="tracking"
+            type="text"
+            placeholder="Search tracking number"
+            value={trackingFilter}
+            onChange={(e) => setTrackingFilter(e.target.value)}
+            className="filter-input"
+          />
+        </div>
 
-        <div className="status-selector-wrapper">
-          <h3>Filter by status:</h3>
+        <div className="control-group">
+          <label className="control-label" htmlFor="status">STATUS FILTER:</label>
           <select
+            id="status"
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
             className="filter-select"
@@ -65,9 +87,15 @@ function ParcelTable({ parcels, setShowDialog, reloadParcels }) {
           </select>
         </div>
 
-        <button onClick={() => setShowDialog(true)}>CREATE NEW PACKAGE</button>
+        <button
+          className="create-package-button"
+          onClick={() => setShowDialog(true)}
+        >
+          CREATE NEW PACKAGE
+        </button>
       </div>
 
+      {/* Parcel Table */}
       <div className="table-scroll">
         <table className="parcel-table">
           <thead>
@@ -101,7 +129,7 @@ function ParcelTable({ parcels, setShowDialog, reloadParcels }) {
                     ) : (
                       <select
                         value={currentStatus || ''}
-                        onChange={(e) => handleStatusChange(parcel.id, e.target.value)}
+                        onChange={(e) => handleStatusSelect(parcel.id, e.target.value)}
                         className={`status-select status-${currentStatus?.toLowerCase() || 'unknown'}`}
                       >
                         <option value={currentStatus || ''}>{currentStatus || 'Unknown'}</option>
@@ -118,9 +146,48 @@ function ParcelTable({ parcels, setShowDialog, reloadParcels }) {
           </tbody>
         </table>
       </div>
+
+      {/* Confirmation Modal */}
+      {showConfirmationModal && (
+        <div className="confirmation-modal" role="dialog" aria-modal="true">
+          <div className="modal-content">
+            <p>
+              Are you sure you want to update the status to <strong>{selectedNewStatus}</strong>?
+            </p>
+            {(selectedNewStatus === 'Canceled' || selectedNewStatus === 'Accepted') && (
+              <p className="final-warning">
+                ⚠️ Please note: <strong>{selectedNewStatus}</strong> is a final status and cannot be changed later.
+              </p>
+            )}
+            <div className="modal-buttons">
+              <button onClick={confirmStatusChange}>Yes</button>
+              <button onClick={() => setShowConfirmationModal(false)}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div className="confirmation-modal" role="dialog" aria-modal="true">
+          <div className="modal-content">
+            <p>Status successfully updated to <strong>{selectedNewStatus}</strong>.</p>
+            <button onClick={() => setShowSuccessModal(false)}>Close</button>
+          </div>
+        </div>
+      )}
+
+      {/* Failure Modal */}
+      {showFailureModal && (
+        <div className="confirmation-modal failure" role="dialog" aria-modal="true">
+          <div className="modal-content">
+            <p>❌ Failed to update status. Please try again later.</p>
+            <button onClick={() => setShowFailureModal(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
 export default ParcelTable;
-

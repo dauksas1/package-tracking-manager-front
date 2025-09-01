@@ -1,11 +1,12 @@
+/* Navigation Bar */
 .nav-bar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #121212dd; 
   padding: 5px 30px;
   margin-right: 0;
+  background-color: #121212dd;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,6 +14,11 @@
   z-index: 1000;
 }
 
+.nav-bar:hover {
+  animation: neon-glow 1.5s infinite alternate;
+}
+
+/* Brand Styling */
 .nav-brand a {
   color: #00ffff;
   font-size: 24px;
@@ -20,10 +26,11 @@
   text-decoration: none;
 }
 
+/* Navigation Links */
 .nav-links {
-  margin-right: 80px;
   display: flex;
   gap: 20px;
+  margin-right: 80px;
 }
 
 .nav-links a {
@@ -38,36 +45,9 @@
   text-shadow: 0 0 8px rgba(46, 224, 255, 0.8);
 }
 
+/* Neon Glow Animation */
 @keyframes neon-glow {
-  0% { box-shadow: 0 0 5px rgba(0, 255, 255, 0.3); }
-  50% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.6); }
+  0%   { box-shadow: 0 0 5px rgba(0, 255, 255, 0.3); }
+  50%  { box-shadow: 0 0 15px rgba(0, 255, 255, 0.6); }
   100% { box-shadow: 0 0 5px rgba(0, 255, 255, 0.3); }
-}
-
-.nav-bar:hover {
-  animation: neon-glow 1.5s infinite alternate;
-}
-
-.sidebar-btn{
-  background-color: #12121200; 
-  border:none;
-  margin-right: 5px;
-  margin-bottom: 5px;
-  position: fixed;
-  right: 0;  
-  color: #fff;
-  font-size: 18px;
-  transition: color 0.3s ease-in-out;
-  padding-top: 4px;
-  padding-bottom: 1px;
-  padding-left: 8px;
-  padding-right: 8px;
-}
-
-.sidebar-btn:hover{
-  border:none;
-}
-
-.sidebar-btn:checked{
-  border:none;
 }
